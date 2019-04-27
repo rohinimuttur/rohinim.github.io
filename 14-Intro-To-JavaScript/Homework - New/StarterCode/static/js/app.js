@@ -58,7 +58,7 @@ var uniqueshapes = shapes.filter(function(elem, index, self)
 })
 
 //uniqueshapes.sort();
-console.log(uniquecities);
+//console.log(uniquecities);
 
 // Populate the Cities dropdown
 var select = document.getElementById("CityList");
@@ -91,6 +91,8 @@ for(index in uniqueshapes)
 
 
 ///-------------------------------------
+
+
 function table(data) 
 {
   tbody.html("");
@@ -111,16 +113,68 @@ function buttonClick()
 {
 
  d3.event.preventDefault();
-  let date = d3.select("#datetime").property("value");
-  let city1 = d3.select("#CityList").property("value");
-  let state1=d3.select("#StateList").property("value");
-  let country1=d3.select("#CountryList").property("value");
-  let shape1=d3.select("#ShapeList").property("value");
+  var filter_arr=[];
+  let date = d3.select("#datetime").property("value").trim();
+ 
+  let city1 = d3.select("#CityList").property("value").trim();
+  
+  let state1=d3.select("#StateList").property("value").trim();
+  
+  let country1=d3.select("#CountryList").property("value").trim();
+  
+  let shape1=d3.select("#ShapeList").property("value").trim();
+  
   let filteredData = tableData;
-  if (date && city1) 
+
+  
+
+  console.log(`${date}-${city1}--${state1}--${country1}--${shape1}`)
+  if (date!="" && city1=="Select City" && state1=="Select State" && country1=="Select Country" && shape1=="Select Shape") 
+  {    
+    filteredData = filteredData.filter(row => row.datetime === date);
+    console.log(`GOT IT  1!!!!!${filteredData}`);
+  }
+  else if (city1!="Select City" && date=="" && state1=="Select State" && country1=="Select Country" && shape1=="Select Shape") 
+  {   
+    console.log(`Came to cities`); 
+    filteredData = filteredData.filter(row => row.city === city1);
+    console.log(`GOT IT  2!!!!!${filteredData}`);
+  }
+  else if (state1!="Select State" && date=="" && city1=="Select City" && country1=="Select Country" && shape1=="Select Shape") 
+  {    
+    console.log(`Came to states`);
+    filteredData = filteredData.filter(row => row.state === state1);
+    console.log(`GOT IT  3!!!!!${filteredData}`);
+  }
+  else if (country1!="Select Country" && state1=="Select State" && date=="" && city1=="Select City" && shape1=="Select Shape") 
+  {    
+    filteredData = filteredData.filter(row => row.country === country1);
+    console.log(`GOT IT  4!!!!!${filteredData}`);
+  }
+  else if (shape1!="Select Shape" && date=="" && city1=="Select City" && state1=="Select State" && country1=="Select Country") 
+  {    
+    filteredData = filteredData.filter(row => row.shape === shape1);
+    console.log(`GOT IT  5!!!!!${filteredData}`);
+  }
+  else if (date!="" && city1!="Select City" && state1=="Select State" && country1=="Select Country" && shape1=="Select Shape" )
   {
-    filteredData = filteredData.filter(row => row.datetime === date && row.city === city1 && row.state === state1 && row.country === country1 && row.shape === shape1);
-    //filteredData = filteredData.filter(row => row.datetime === date || row.city === city1 || row.state === state1 || row.country === country1 || row.shape === shape1);
+    filteredData = filteredData.filter(row =>row.datetime === date && row.city === city1);
+    console.log(`GOT IT  6!!!!!${filteredData}`);
+  }
+  else if (date!="" && city1!="Select City" && state1!="Select State" && country1=="Select Country" && shape1=="Select Shape" )
+  {
+    filteredData = filteredData.filter(row =>row.datetime === date && row.city === city1 && row.state === state1);
+    console.log(`GOT IT  7!!!!!${filteredData}`);
+  }
+  else if (date!="" && city1!="Select City" && state1!="Select State" && country1!="Select Country" && shape1=="Select Shape" )
+  {
+    filteredData = filteredData.filter(row =>row.datetime === date && row.city === city1 && row.country === country1);
+    console.log(`GOT IT  8!!!!!${filteredData}`);
+  }
+  else if (date!="" && city1!="Select City" && state1!="Select State" && country1!="Select Country" && shape1!="Select Shape" )
+  {
+    filteredData = filteredData.filter(row =>row.datetime === date && row.city === city1 && row.country === country1 && row.shape === shape1);
+    console.log(`GOT IT  9!!!!!${filteredData}`);
   }
   table(filteredData);
 }
