@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="New2"
+  DTS:DTSID="{90CB446A-556A-4774-9FED-3EF9E64B0250}"
+  DTS:CreationName="FLATFILE">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:Format="Delimited"
+      DTS:LocaleID="1033"
+      DTS:HeaderRowDelimiter="_x000D__x000A_"
+      DTS:ColumnNamesInFirstDataRow="True"
+      DTS:RowDelimiter=""
+      DTS:TextQualifier="_x0022_"
+      DTS:CodePage="1252"
+      DTS:ConnectionString="C:\Users\80175484\Documents\MDM\22-04_LoadTesting\LOAD2.csv">
+      <DTS:FlatFileColumns>
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="UPCMasterId"
+          DTS:DTSID="{52895B29-E49F-4992-8DDC-C0C18FC3146B}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="UPC"
+          DTS:DTSID="{4F84556A-F4BB-4B00-85F1-3AE6F5D78E1A}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="100"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="UPCName"
+          DTS:DTSID="{3CCC998F-5174-43D1-8F2B-4124E09289EE}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="BrandCategory"
+          DTS:DTSID="{0AC617E4-A940-49C0-A6F9-F349E1A23298}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="200"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="Proc_UPCName"
+          DTS:DTSID="{D616A51F-BFDE-41DE-A3BB-72B8892D811B}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="200"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="Proc_UPCName1"
+          DTS:DTSID="{C8CA33CA-1A48-4102-8A19-6146D4BE4705}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="200"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="Proc_UPCName2"
+          DTS:DTSID="{B772E429-E347-4FDD-9259-CCBEBE5C8307}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="IsUPCFuzzy"
+          DTS:DTSID="{49031BC1-2D39-4F0B-B250-D12456810D25}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="IsUPCFuzzyOld"
+          DTS:DTSID="{A9ECC535-7690-4244-8D78-E186D60B5477}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="IsUPCFuzzyNew"
+          DTS:DTSID="{2702A13A-53C5-4C06-B982-9C0E4A07CCAE}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="IsUPCNew"
+          DTS:DTSID="{8673C4A7-BAC1-47DB-9342-5C6E5A261B34}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="LastUpdatedUserId"
+          DTS:DTSID="{35588573-1CE3-4176-BC04-0246DC0DEE98}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x000D__x000A_"
+          DTS:MaximumWidth="50"
+          DTS:DataType="129"
+          DTS:TextQualified="True"
+          DTS:ObjectName="Created"
+          DTS:DTSID="{43976645-57BC-4985-A93D-7117AB0B5569}"
+          DTS:CreationName="" />
+      </DTS:FlatFileColumns>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

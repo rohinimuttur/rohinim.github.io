@@ -1,0 +1,72 @@
+document.querySelector('input[name="selectasin"]:checked').value;
+
+document.querySelector('input[id="48"]:checked').value;
+
+
+ document.querySelector('input[name=selectasin]:checked').value
+
+ document.getElementById("48").value;
+
+
+ document.querySelector('input[id="#a.ASINMasterId"]:checked').value;
+
+
+ var found_it
+
+for (var i=0; i<document.forms.asinpage.selectasin.length; i++)  {
+if (document.forms.asinpage.selectasin[i].checked)  {
+
+found_it = document.forms.asinpage.selectasin[i].value
+console.log(found_it)
+
+}
+}
+
+document.forms.asinpage.selectasin.length
+
+
+document.asinpage.selectasin[2].value
+
+document.getElementById(document.asinpage.selectasin[2].id)
+
+
+ $('#asin-table').DataTable();
+                        
+
+
+
+ var found_it
+
+for (var i=0; i<document.forms.asinpage.asintr.length; i++)  {
+if (document.forms.asinpage.asintr[i].checked)  {
+
+found_it = document.forms.asinpage.asintr[i].value
+console.log(found_it)
+
+}
+}
+
+
+document.querySelector('input[name="Pepsi Cola Soda, 2 Liter"]:checked').value;
+
+
+document.getElementById(${{a.ASINMasterId}})
+
+
+
+
+for (var i=0;i<asinpage.elements.selectasin.length;i++)
+{ 
+        if(asinpage.elements.selectasin[i].checked)
+            {
+                var val1=asinpage.elements.selectasin[i]
+                console.log(`Selected element is
+                 ${val1}`)
+            }
+        else 
+        {   
+            var val2=asinpage.elements.selectasin[i]
+            console.log(`Not selceted ${val2}`)
+        }
+    
+}

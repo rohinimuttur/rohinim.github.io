@@ -1,0 +1,8 @@
+Install ODBC driver for SQL server and my sql on the Ubuntu.
+export $AIRFLOW_HOME=/mnt/c/somefolder
+
+dags_folder=AIRFLOW_HOME/dags_folder
+logs_folder=~/logs_folder
+sql_alchemy_conn=
+
+
