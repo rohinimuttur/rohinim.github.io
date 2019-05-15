@@ -1,9 +1,0 @@
-1. Product Table - ASINs and UPC
-2.ASIN product,UPC product
-2.Amazon hiereachy
-Pepsi Hierarchy- BU, SUB BU,Brand 
-IRI Hierarchy-
-Link Table 
-
-
-Brand  , BU --> UPCS
