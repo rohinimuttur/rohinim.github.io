@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ASIN Catalog Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lux/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href=" https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+       
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="static/css/style.css">
+      </head>
+  <body>
+     
+      <div class="text-center">
+          <h1>ASIN Display page</h1>
+          <br/><br/>
+               
+      </div>
+      <form >
+        
+        <div class="col-md-10">
+            <div id="table-area" class="">
+              <table id="asin-table" class="table table-hover" name="asin-table">
+               
+                <tbody>
+                    <tr> <input type="button" value="Go back" class="input2" onclick="history.back()"></tr>    
+                    <tr class="bg-info">
+                      <td>
+                        <input type="text" name="ASINH123" value="ASIN"  readonly="readonly"/>
+                        <input type="text" name="ASINNAMEH123" value="ASIN NAME"  size="100" readonly="readonly" />
+                        <input type="text" name="BUH123" value="BU" readonly="readonly" />
+                        <input type="text" name="SUBBUH123" value="Sub BU" readonly="readonly" />
+                        <input type="text" name="PEPBRNDH123" value="Pepsi Brand" readonly="readonly" />
+                        <input type="text" name="BRNDSRCH123" value="Brand Source" readonly="readonly" />
+                      </td>
+                    </tr>
+                 
+                    {% for a in asins %}
+                    
+                    <tr>                   
+                      <td>
+                      <form  method="POST" action="./display_update" style="display: inline"> 
+                      
+                          <input type="text" name="ASIN123" value="{{a.ASIN}}" readonly="readonly" />
+                          <input type="text" name="ASINName123" value="{{a.ASIN_Name}}" size="100" readonly="readonly" />
+                          <input type="text" name="BU123" value="{{a.BU}}" readonly="readonly" />
+                          <input type="text" name="SubBU123" value="{{a.SubBU}}" readonly="readonly" />
+                          <input type="text" name="PepsiBrand123" value="{{a.PepsiBrand}}" readonly="readonly" />
+                          <input type="text" name="BrandSource123" value="{{a.BrandSource}}" readonly="readonly" />
+                          <input type="submit" class="input2" value="Edit" />
+
+                        </form>
+                      </td>
+                    </tr>
+                   
+                </tbody>
+              
+                {% endfor %}
+            
+              </table>
+            </div>
+              <input type="button" value="Go back" class="input2" onclick="history.back()">              
+   
+            </form> 
+          </div>
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script> 
+            <script src="static/js/searchpage.js"></script> 
+             
+  </body>
+</html>
