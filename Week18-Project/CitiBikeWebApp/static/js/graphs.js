@@ -1,111 +1,168 @@
+
 queue()
-    .defer(d3.json, "/donorschoose/projects")
-    .defer(d3.json, "static/geojson/us-states.json")
-    .await(makeGraphs);
+	.defer(d3.json, "/data")
+	.await(makeGraphs);
 
-function makeGraphs(error, projectsJson, statesJson) {
+function makeGraphs(error, projectsJson) {
 	
-	//Clean projectsJson data
-	var donorschooseProjects = projectsJson;
-	var dateFormat = d3.time.format("%Y-%m-%d");
-	donorschooseProjects.forEach(function(d) {
-		d["date_posted"] = dateFormat.parse(d["date_posted"]);
-		d["date_posted"].setDate(1);
-		d["total_donations"] = +d["total_donations"];
+	var bikeprojects = projectsJson;
+	//console.log(bikeprojects)
+	var dateFormat = d3.time.format("%Y-%m");
+	bikeprojects.forEach(function(d) 
+	{
+		d["yearofride"] = dateFormat.parse(d["yearofride"]);
+		
 	});
+	
 
-	//Create a Crossfilter instance
-	var ndx = crossfilter(donorschooseProjects);
+	
+	 var ndx = crossfilter(bikeprojects);
+	 
+	 var genderDim = ndx.dimension(function(d) { return d["gender"]; })
+	 var genderGroup = genderDim.group();
+		
+	 console.log(genderGroup)
+	 var genderChart = dc.rowChart("#gender-row-chart");
 
-	//Define Dimensions
-	var dateDim = ndx.dimension(function(d) { return d["date_posted"]; });
-	var resourceTypeDim = ndx.dimension(function(d) { return d["resource_type"]; });
-	var povertyLevelDim = ndx.dimension(function(d) { return d["poverty_level"]; });
-	var stateDim = ndx.dimension(function(d) { return d["school_state"]; });
-	var totalDonationsDim  = ndx.dimension(function(d) { return d["total_donations"]; });
+	 var ageDim=ndx.dimension(function(d) { return d["age"]; })
+	 var ageGroup = ageDim.group();	
+	 var ageChart = dc.pieChart("#age-segment-row-chart");
+	 
+	
 
 
-	//Calculate metrics
-	var numProjectsByDate = dateDim.group(); 
-	var numProjectsByResourceType = resourceTypeDim.group();
-	var numProjectsByPovertyLevel = povertyLevelDim.group();
-	var totalDonationsByState = stateDim.group().reduceSum(function(d) {
-		return d["total_donations"];
-	});
+	 var startStnDim=ndx.dimension(function(d) { return d["start station name"] })	
+	 console.log(startStnGroup)
+	 var startStnGroup = startStnDim.group();
+	 console.log(startStnGroup)	 
+	 var startStnChart = dc.rowChart("#location-row-chart");
 
-	var all = ndx.groupAll();
-	var totalDonations = ndx.groupAll().reduceSum(function(d) {return d["total_donations"];});
 
-	var max_state = totalDonationsByState.top(1)[0].value;
+	 var endStnDim=ndx.dimension(function(d) { return  d["end station name"];})	
+	 var endStnGroup = endStnDim.group();
+	 console.log(endStnGroup.size)	 
+	 var endStnChart = dc.rowChart("#location-row-chart-2");
 
-	//Define values (to be used in charts)
-	var minDate = dateDim.bottom(1)[0]["date_posted"];
-	var maxDate = dateDim.top(1)[0]["date_posted"];
 
-    //Charts
-	var timeChart = dc.barChart("#time-chart");
-	var resourceTypeChart = dc.rowChart("#resource-type-row-chart");
-	var povertyLevelChart = dc.rowChart("#poverty-level-row-chart");
-	var usChart = dc.geoChoroplethChart("#us-chart");
-	var numberProjectsND = dc.numberDisplay("#number-projects-nd");
-	var totalDonationsND = dc.numberDisplay("#total-donations-nd");
+	 var dateDim = ndx.dimension(function(d) { return d["yearofride"]; });
+	 var numRecordsByDate = dateDim.group();
+	 var timeChart = dc.barChart("#time-chart");
+	 var minDate = dateDim.bottom(1)[0]["yearofride"];
+	 var maxDate = dateDim.top(1)[0]["yearofride"];
+	 console.log(`${minDate}--${maxDate}`);
+	 console.log(numRecordsByDate)
 
-	numberProjectsND
-		.formatNumber(d3.format("d"))
-		.valueAccessor(function(d){return d; })
-		.group(all);
 
-	totalDonationsND
-		.formatNumber(d3.format("d"))
-		.valueAccessor(function(d){return d; })
-		.group(totalDonations)
-		.formatNumber(d3.format(".3s"));
+	 var allDim = ndx.dimension(function(d) {return d;});
+	 var all = ndx.groupAll();
+	 var numberRecordsND = dc.numberDisplay("#number-records-nd");
 
-	timeChart
-		.width(600)
-		.height(160)
-		.margins({top: 10, right: 50, bottom: 30, left: 50})
-		.dimension(dateDim)
-		.group(numProjectsByDate)
-		.transitionDuration(500)
-		.x(d3.time.scale().domain([minDate, maxDate]))
-		.elasticY(true)
-		.xAxisLabel("Year")
-		.yAxis().ticks(4);
 
-	resourceTypeChart
-        .width(300)
-        .height(250)
-        .dimension(resourceTypeDim)
-        .group(numProjectsByResourceType)
-        .xAxis().ticks(4);
+	
 
-	povertyLevelChart
+	 genderChart
+	.width(300)
+	.height(100)
+	.dimension(genderDim)
+	.group(genderGroup)
+	.ordering(function(d) { return -d.value })
+	.colors(['#6baed6'])
+	.elasticX(true)
+	.xAxis().ticks(4);
+
+
+	ageChart
 		.width(300)
-		.height(250)
-        .dimension(povertyLevelDim)
-        .group(numProjectsByPovertyLevel)
-        .xAxis().ticks(4);
+		.height(250)				
+        .dimension(ageDim)
+        .group(ageGroup)
+        .colorAccessor(function (d, i){return i;})
+        ;
+        
+		
+		startStnChart
+			.width(250)
+			.height(15000)
+		    .dimension(startStnDim)
+		    .group(startStnGroup)
+		    .ordering(function(d) { return -d.value })
+		    .colors(['#6baed6'])
+		    .elasticX(true)
+		    .labelOffsetY(10)
+			.xAxis().ticks(4);
+		endStnChart
+			.width(250)
+			.height(15000)
+		    .dimension(endStnDim)
+		    .group(endStnGroup)
+		    .ordering(function(d) { return -d.value })
+		    .colors(['#6baed6'])
+		    .elasticX(true)
+		    .labelOffsetY(10)
+			.xAxis().ticks(4);
+		timeChart
+			.width(650)
+			.height(150)
+			.margins({top: 10, right: 50, bottom: 20, left: 20})
+			.dimension(dateDim)
+			.group(numRecordsByDate)
+			.transitionDuration(500)
+			.x(d3.time.scale().domain([minDate, maxDate]))
+			.elasticY(true)
+			.yAxis().ticks(4);
 
+		numberRecordsND
+			.formatNumber(d3.format("d"))
+			.valueAccessor(function(d){return d; })
+			.group(all);
+	
+	///----- Code for Map-----------------------
+		
+	var map = L.map('map');
 
-	usChart.width(1000)
-		.height(330)
-		.dimension(stateDim)
-		.group(totalDonationsByState)
-		.colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
-		.colorDomain([0, max_state])
-		.overlayGeoJson(statesJson["features"], "state", function (d) {
-			return d.properties.name;
-		})
-		.projection(d3.geo.albersUsa()
-    				.scale(600)
-    				.translate([340, 150]))
-		.title(function (p) {
-			return "State: " + p["key"]
-					+ "\n"
-					+ "Total Donations: " + Math.round(p["value"]) + " $";
-		})
+	var drawMap = function(){
 
-    dc.renderAll();
+	    map.setView([40.73, -74.0059], 10);
+		mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+		L.tileLayer(
+			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; ' + mapLink + ' Contributors',
+				maxZoom: 15,
+			}).addTo(map);
 
+		//HeatMap
+		var geoData = [];
+		_.each(allDim.top(Infinity), function (d) {
+			geoData.push([d["start station latitude"], d["start station longitude"], 1]);
+	      });
+		var heat = L.heatLayer(geoData,{
+			radius: 10,
+			blur: 20, 
+			maxZoom: 3,
+		}).addTo(map);
+
+	};
+
+	//Draw Map
+	drawMap();
+
+	//Update the heatmap if any dc chart get filtered
+	dcCharts = [genderChart,ageChart,startStnChart,endStnChart,timeChart,timeChart];
+
+	_.each(dcCharts, function (dcChart) {
+		dcChart.on("filtered", function (chart, filter) {
+			map.eachLayer(function (layer) {
+				map.removeLayer(layer)
+			}); 
+			drawMap();
+		});
+	});
+
+	dc.renderAll();
 };
+
+	
+	
+	  
+
+

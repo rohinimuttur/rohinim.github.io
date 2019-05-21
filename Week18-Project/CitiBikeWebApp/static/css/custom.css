@@ -10,3 +10,8 @@
     fill: black;
     font-size: 12px;
 }
+
+.anyClass {
+    height:350px;
+    overflow-y: scroll;
+  }

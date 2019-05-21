@@ -1,1 +1,0 @@
-mongoimport -d citibike -c bikeinfo --type csv --file citibike_data_sample.csv --headerline

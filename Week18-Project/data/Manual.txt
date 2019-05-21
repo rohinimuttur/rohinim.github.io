@@ -1,4 +1,0 @@
-1. Remove spaces from the data file hearders and replace with _
-2. Go to C:\data\db and 1) Paste the latest data file here 2)open a windows cmd prompt from here
-3. Run the below command to import the csv file into your database
-   mongoimport -d citibike -c bikeinfo --type csv --file citibike_data_sample.csv --headerline
