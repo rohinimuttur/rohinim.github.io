@@ -11,20 +11,14 @@ function makeGraphs(error, projectsJson) {
 	bikeprojects.forEach(function(d) 
 	{
 		d["yearofride"] = dateFormat.parse(d["yearofride"]);
-
-
 		
 	});
 	
-	function reduceAdd(p, v) {
-		p.worth = p.worth + v.worth;
-		p.count = p.count + 1;
-		return p;
-	 }
+
 	
 	 var ndx = crossfilter(bikeprojects);
 	 
-	 var genderDim = ndx.dimension(function(d){ return d["gender"]; })
+	 var genderDim = ndx.dimension(function(d) { return d["gender"]; })
 	 var genderGroup = genderDim.group();
 		
 	 console.log(genderGroup)
@@ -33,14 +27,12 @@ function makeGraphs(error, projectsJson) {
 	 var ageDim=ndx.dimension(function(d) { return d["age"]; })
 	 var ageGroup = ageDim.group();	
 	 var ageChart = dc.pieChart("#age-segment-row-chart");
-
+	 
 	 var calDim=ndx.dimension(function(d) { return d["Time_day"]})
 	 //var calDim2=ndx.dimension(function(d) { return d["calories_burned"]  + '-' +d["gender"]})	 
 	 var calGroup = calDim.group();
 	 var calChart = dc.rowChart("#cal-segment-row-chart");
 
-
-	 
 
 	 var startStnDim=ndx.dimension(function(d) { return d["start station name"] })	
 	 console.log(startStnGroup)
@@ -71,56 +63,47 @@ function makeGraphs(error, projectsJson) {
 
 	
 
-  genderChart
+	 genderChart
 	.width(300)
 	.height(100)
 	.dimension(genderDim)
 	.group(genderGroup)
 	.ordering(function(d) { return -d.value })
-	.colors(d3.scale.ordinal().range(['lightblue']))
+	.colors(['#6baed6'])
 	.elasticX(true)
 	.xAxis().ticks(4);
 
 
 	ageChart
 		.width(300)
-		.height(250)
-		.slicesCap(4)
-		.innerRadius(60) 				
+		.height(250)				
         .dimension(ageDim)
-		.group(ageGroup)				
-		.legend(dc.legend())
-        .on('preRedraw', function() {
-			chart.calculateColorDomain();
-		});
-		;
-		
+        .group(ageGroup)
+        .colorAccessor(function (d, i){return i;})
+        ;
+        
 	calChart
 		.width(300)
-		.height(400)	
-		.x(d3.scale.linear().domain([0,1000]).range([0, 1000]))		
+		.height(400)
 		.dimension(calDim)
 		.group(calGroup)
-		.ordering(function(d) { return -d.key })
-		//.colors(['#6baed6'])		
+		.ordering(function(d) { return -d.key })		
 		.elasticX(true)
 		.xAxis().ticks(4);
 
-		
 	startStnChart
-			.width(300)
-			.height(15000)					
+			.width(250)
+			.height(15000)
 		    .dimension(startStnDim)
 		    .group(startStnGroup)
-			.ordering(function(d) { return -d.value })				
-			.colors(['#6baed6'])	    
+		    .ordering(function(d) { return -d.value })
+		    .colors(['#6baed6'])
 		    .elasticX(true)
 		    .labelOffsetY(10)
 			.xAxis().ticks(4);
-	endStnChart
-			.width(300)
+		endStnChart
+			.width(250)
 			.height(15000)
-			.x(d3.scale.linear().domain([15,100]))
 		    .dimension(endStnDim)
 		    .group(endStnGroup)
 		    .ordering(function(d) { return -d.value })
@@ -128,7 +111,7 @@ function makeGraphs(error, projectsJson) {
 		    .elasticX(true)
 		    .labelOffsetY(10)
 			.xAxis().ticks(4);
-	timeChart
+		timeChart
 			.width(650)
 			.height(150)
 			.margins({top: 10, right: 50, bottom: 20, left: 20})
@@ -139,7 +122,7 @@ function makeGraphs(error, projectsJson) {
 			.elasticY(true)
 			.yAxis().ticks(4);
 
-	numberRecordsND
+		numberRecordsND
 			.formatNumber(d3.format("d"))
 			.valueAccessor(function(d){return d; })
 			.group(all);
@@ -156,10 +139,8 @@ function makeGraphs(error, projectsJson) {
 			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; ' + mapLink + ' Contributors',
 				maxZoom: 15,
-				id: "mapbox.streets",
 			}).addTo(map);
-		
-		
+
 		//HeatMap
 		var geoData = [];
 		_.each(allDim.top(Infinity), function (d) {
