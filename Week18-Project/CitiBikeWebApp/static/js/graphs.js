@@ -82,17 +82,14 @@ function makeGraphs(error, projectsJson) {
 	.xAxis().ticks(4);
 
 
-	ageChart
-		.width(300)
-		.height(250)
-		.slicesCap(4)
-		.innerRadius(60) 				
+	ageChart		
+		.width(260)
+		.height(250)		
+		.innerRadius(50) 				
         .dimension(ageDim)
 		.group(ageGroup)				
 		.legend(dc.legend())
-        .on('preRedraw', function() {
-			chart.calculateColorDomain();
-		});
+        
 		;
 		
 	calChart
@@ -150,7 +147,7 @@ function makeGraphs(error, projectsJson) {
 
 	var drawMap = function(){
 
-	    map.setView([40.73, -74.0059], 10);
+	    map.setView([40.73, -74.0059], 11);
 		mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 		L.tileLayer(
 			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -168,7 +165,7 @@ function makeGraphs(error, projectsJson) {
 		var heat = L.heatLayer(geoData,{
 			radius: 10,
 			blur: 20, 
-			maxZoom: 3,
+			maxZoom: 5,
 		}).addTo(map);
 
 	};
