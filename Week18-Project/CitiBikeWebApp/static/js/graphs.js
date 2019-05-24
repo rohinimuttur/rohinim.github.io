@@ -83,7 +83,7 @@ function makeGraphs(error, projectsJson) {
 
 
 	ageChart		
-		.width(260)
+		.width(270)
 		.height(250)		
 		.innerRadius(50) 				
         .dimension(ageDim)
@@ -93,8 +93,8 @@ function makeGraphs(error, projectsJson) {
 		;
 		
 	calChart
-		.width(300)
-		.height(400)	
+		.width(350)
+		.height(410)	
 		.x(d3.scale.linear().domain([0,1000]).range([0, 1000]))		
 		.dimension(calDim)
 		.group(calGroup)
@@ -126,7 +126,7 @@ function makeGraphs(error, projectsJson) {
 		    .labelOffsetY(10)
 			.xAxis().ticks(4);
 	timeChart
-			.width(650)
+			.width(850)
 			.height(150)
 			.margins({top: 10, right: 50, bottom: 20, left: 20})
 			.dimension(dateDim)
